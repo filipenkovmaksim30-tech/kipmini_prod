@@ -1,0 +1,21 @@
+# Веб-фреймворк и сервер
+fastapi==0.128.0
+uvicorn[standard]==0.40.0
+gunicorn>=21.0.0
+
+# База данных, ORM и миграции
+sqlalchemy==2.0.43
+asyncpg==0.31.0
+alembic==1.17.2
+
+# Аутентификация и безопасность
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.19
+
+# Валидация данных и настройки
+pydantic==2.10.6
+pydantic-settings==2.7.0
+email-validator==2.3.0
+slowapi~=0.1.9

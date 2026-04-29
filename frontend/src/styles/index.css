@@ -1,0 +1,302 @@
+/* Глобальные стили */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(59, 130, 246, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(124, 58, 237, 0.15), transparent 55%),
+    linear-gradient(180deg, #f8fbff 0%, #eef3fb 100%);
+  min-height: 100vh;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+/* Стили для скроллбара */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Утилитные классы */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-medium {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-hard {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.compact-section {
+  margin-bottom: 12px;
+}
+
+.dashboard-shell {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.dashboard-top {
+  margin-bottom: 14px;
+}
+
+.dashboard-panel {
+  animation: fadeIn 0.35s ease-out;
+}
+
+.student-dashboard,
+.teacher-dashboard,
+.admin-dashboard {
+  position: relative;
+}
+
+.student-dashboard::before,
+.teacher-dashboard::before,
+.admin-dashboard::before {
+  content: '';
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0) 70%);
+  top: -130px;
+  right: -120px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.student-dashboard::after,
+.teacher-dashboard::after,
+.admin-dashboard::after {
+  content: '';
+  position: fixed;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.14) 0%, rgba(124, 58, 237, 0) 72%);
+  bottom: -160px;
+  left: -140px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.student-tabs,
+.teacher-tabs,
+.admin-tabs {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.student-tabs .MuiTab-root,
+.teacher-tabs .MuiTab-root,
+.admin-tabs .MuiTab-root {
+  margin: 2px 0;
+}
+
+.student-tabs .Mui-selected,
+.teacher-tabs .Mui-selected,
+.admin-tabs .Mui-selected {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.table-modern {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.table-modern .MuiTableRow-root:hover {
+  background-color: rgba(37, 99, 235, 0.06);
+}
+
+.table-modern .MuiTableCell-head {
+  background: #f8fbff;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Кастомные классы для форм */
+.form-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 1.875rem;
+}
+
+/* Градиентные тексты */
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Стили для карточек статистики */
+.stat-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для таблиц */
+.table-container {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.table-header {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* Стили для навигации */
+.nav-link {
+  color: #64748b;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.nav-link.active {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+}
+
+/* Стили для аватаров */
+.avatar-gradient {
+  background: var(--primary-gradient);
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-top {
+    margin-bottom: 10px;
+  }
+
+  .compact-section {
+    margin-bottom: 10px;
+  }
+
+  .student-dashboard::before,
+  .teacher-dashboard::before,
+  .admin-dashboard::before,
+  .student-dashboard::after,
+  .teacher-dashboard::after,
+  .admin-dashboard::after {
+    display: none;
+  }
+}

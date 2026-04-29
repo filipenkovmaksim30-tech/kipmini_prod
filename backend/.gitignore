@@ -1,0 +1,33 @@
+# ==================== Python ====================
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+.python-version
+
+# ==================== Virtual Env ====================
+# Виртуальные окружения (игнорируем всю папку)
+.venv/
+venv/
+env/
+ENV/
+uploads/
+# ==================== Environment ====================
+# Файлы с секретами и настройками окружения
+.env
+.env.local
+.env.*.local
+.env.production
+
+# ==================== Database ====================
+# Файлы SQLite
+*.db
+*.db-journal
+*.sqlite3
+students.db
+kipmini.db
+# ==================== IDE / Editor ====================
+# VS Code
+.vscode/
+# PyCharm
+.idea/

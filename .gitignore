@@ -1,0 +1,25 @@
+# Зависимости и сборка
+node_modules/
+dist/
+build/
+*.log
+
+# Виртуальные окружения и кэш Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Секреты и конфигурация
+.env
+.env.*
+!.env.example
+
+# IDE и OS
+.vscode/
+.idea/
+.DS_Store
+
+# Docker
+uploads/
+.dockerignore
