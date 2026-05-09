@@ -9,7 +9,6 @@ DATABASE_URL = os.getenv(
     "postgresql+asyncpg://kipmini_user:kipmini_password@localhost:5432/kipmini_db",
 )
 
-# In Docker backend must connect to DB service name, not localhost.
 if DATABASE_URL.startswith("postgresql://"):
     DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
 

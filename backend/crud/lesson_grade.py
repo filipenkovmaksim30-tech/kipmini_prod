@@ -39,7 +39,6 @@ async def _format_lesson_grade(
     return result
 
 
-# ---------- Создание ----------
 async def create_lesson_grade(
     session: AsyncSession,
     teacher_id: int,
@@ -75,7 +74,6 @@ async def create_lesson_grade(
     return await _format_lesson_grade(session, grade_obj)
 
 
-# ---------- Получение всех оценок за занятие (для преподавателя) ----------
 async def get_lesson_grades_by_schedule(
     session: AsyncSession,
     schedule_id: int
@@ -90,7 +88,6 @@ async def get_lesson_grades_by_schedule(
     return [await _format_lesson_grade(session, g) for g in grades]
 
 
-# ---------- Получение оценки студента за конкретное занятие (для студента) ----------
 async def get_lesson_grades_for_student(
     session: AsyncSession,
     student_id: int,
@@ -106,7 +103,6 @@ async def get_lesson_grades_for_student(
     grades = result.scalars().all()
     return [await _format_lesson_grade(session, g) for g in grades]
 
-# ---------- Обновление оценки (по ID записи) ----------
 async def update_lesson_grade(
     session: AsyncSession,
     grade_id: int,
@@ -138,7 +134,7 @@ async def update_lesson_grade(
     return await _format_lesson_grade(session, grade_obj)
 
 
-# ---------- Удаление оценки ----------
+
 async def delete_lesson_grade(
     session: AsyncSession,
     grade_id: int,

@@ -180,7 +180,6 @@ async def get_student_grades_for_teacher(
     )
     return grades
 
-# эндпоинты для преподавателей
 
 @router.get("/teacher/my-profile",
          response_model=dict,
@@ -222,7 +221,6 @@ async def get_my_teacher_grades(
     grades = await get_all_grades_for_teacher(session, teacher_id)
     return grades
 
-# =========== Для журнала ==========
 
 @router.get("/teacher/group/{group_id}/journal")
 async def get_group_journal(

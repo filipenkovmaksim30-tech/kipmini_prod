@@ -177,11 +177,9 @@ async def delete_student_by_id(
     session: AsyncSession,
     student_id: int
 ) -> bool:
-    # Сначала удаляем все оценки студента
     await session.execute(
         delete(Grade).where(Grade.student_id == student_id)
     )
-    # Затем удаляем самого студента
     result = await session.execute(
         select(Student).where(Student.id == student_id)
     )

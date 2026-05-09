@@ -18,7 +18,7 @@ async def get_calendar_events(
     end_date: date = Query(..., description="Конечная дата"),
     current_user: UserResponse = Depends(get_current_user)
 ):
-    # Реализацию нужно добавить в ORM
+
     # Пока заглушка
     return []
 
@@ -30,5 +30,5 @@ async def create_calendar_event(
     event: CalendarEventCreate,
     current_user: UserResponse = Depends(get_current_admin)
 ):
-    # Реализацию нужно добавить в ORM
+    # Реализацию нужно добавить в CRUD
     raise HTTPException(status_code=501, detail="В разработке")

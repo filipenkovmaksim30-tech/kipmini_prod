@@ -20,7 +20,6 @@ async def get_student_semester_journal(
     else:
         months = [1, 2, 3, 4, 5, 6]
 
-    # Базовый запрос для занятий
     query = (
         select(Schedule, Subject.name.label("subject_name"))
         .join(Subject, Schedule.subject_id == Subject.id)
@@ -31,7 +30,6 @@ async def get_student_semester_journal(
             Schedule.is_active == True
         )
     )
-    # Фильтрация по предмету, если указан
     if subject_id is not None:
         query = query.where(Schedule.subject_id == subject_id)
 
@@ -50,7 +48,6 @@ async def get_student_semester_journal(
             "subject_id": schedule.subject_id
         })
 
-    # Загружаем оценки студента для этих занятий
     grades = []
     if schedule_ids:
         grades_result = await session.execute(

@@ -4,7 +4,6 @@ from sqlalchemy import select, and_, or_, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from backend.models import Schedule, Group, Subject, Teacher
 
-# ---------- Вспомогательная функция форматирования ----------
 async def _format_schedule_response(session: AsyncSession, schedule: Schedule) -> Dict[str, Any]:
     """Форматирование ответа с добавлением formatted_date и day_name."""
     group_name = None
@@ -66,7 +65,6 @@ async def _format_schedule_response(session: AsyncSession, schedule: Schedule) -
     }
 
 
-# ---------- Проверка наложения ----------
 async def _check_overlapping(
     session: AsyncSession,
     group_id: int,
@@ -95,7 +93,6 @@ async def _check_overlapping(
     return result.scalar_one_or_none() is not None
 
 
-# ---------- CRUD ----------
 async def create_schedule(session: AsyncSession, data: dict):
     """Создание записи в расписании."""
     required = ["group_id", "academic_year", "week_num", "month", "day", "day_of_week", "start_time", "end_time"]
@@ -117,7 +114,6 @@ async def create_schedule(session: AsyncSession, data: dict):
         if not teacher:
             raise ValueError(f"Преподаватель с ID {data['teacher_id']} не найден")
 
-    # Проверка наложения (без week_num)
     overlapping = await _check_overlapping(
         session,
         group_id=data["group_id"],
@@ -150,7 +146,6 @@ async def update_schedule(session: AsyncSession, schedule_id: int, update_data: 
     if not schedule:
         return None
 
-    # Новые значения (или старые, если не переданы)
     new_group = update_data.get("group_id", schedule.group_id)
     new_academic_year = update_data.get("academic_year", schedule.academic_year)
     new_month = update_data.get("month", schedule.month)
@@ -158,7 +153,6 @@ async def update_schedule(session: AsyncSession, schedule_id: int, update_data: 
     new_start = update_data.get("start_time", schedule.start_time)
     new_end = update_data.get("end_time", schedule.end_time)
 
-    # Проверка наложения, если изменились ключевые поля (без week_num)
     if (new_group != schedule.group_id or
         new_academic_year != schedule.academic_year or
         new_month != schedule.month or
@@ -198,13 +192,12 @@ async def delete_schedule(session: AsyncSession, schedule_id: int) -> bool:
     return True
 
 
-# ---------- Получение всех записей (админ) с фильтрацией ----------
 async def get_all_schedules(
     session: AsyncSession,
     academic_year: Optional[int] = None,
     month: Optional[int] = None,
     day: Optional[int] = None,
-    week_num: Optional[int] = None,  # новый параметр
+    week_num: Optional[int] = None,
     group_id: Optional[int] = None,
     teacher_id: Optional[int] = None,
     limit: int = 100,
@@ -237,14 +230,13 @@ async def get_all_schedules(
     return [await _format_schedule_response(session, s) for s in schedules]
 
 
-# ---------- Расписание на день для группы ----------
 async def get_daily_group_schedule(
     session: AsyncSession,
     group_id: int,
     academic_year: int,
     month: int,
     day: int,
-    week_num: Optional[int] = None  # новый параметр
+    week_num: Optional[int] = None 
 ) -> List[Dict]:
     conditions = [
         Schedule.group_id == group_id,
@@ -262,13 +254,12 @@ async def get_daily_group_schedule(
     return [await _format_schedule_response(session, s) for s in schedules]
 
 
-# ---------- Недельное расписание для группы ----------
 async def get_weekly_group_schedule(
     session: AsyncSession,
     group_id: int,
     academic_year: int,
     week_start: date,
-    week_num: Optional[int] = None  # новый параметр
+    week_num: Optional[int] = None
 ) -> Dict[str, List[Dict]]:
     """week_start - дата понедельника."""
     days = [week_start + timedelta(days=i) for i in range(7)]
@@ -307,7 +298,6 @@ async def get_weekly_group_schedule(
     return grouped
 
 
-# ---------- Аналогично для преподавателя ----------
 async def get_daily_teacher_schedule(
     session: AsyncSession,
     teacher_id: int,

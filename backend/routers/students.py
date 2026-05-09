@@ -182,7 +182,6 @@ async def delete_student(
             detail=f"Студент с Id {student_id} не найден"
         )
 
-# ====== ЭНДПОИНТЫ ДЛЯ СТУДЕНТОВ =====
 
 @router.get("/student/me",
          response_model=StudentResponse,

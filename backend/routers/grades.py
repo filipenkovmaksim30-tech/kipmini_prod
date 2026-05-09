@@ -118,7 +118,6 @@ async def get_student_grades_endpoint(
     grades = await get_grades_by_student_id(session, student_id)
     return grades
 
-# =========== ОЦЕНКИ ЗА СЕМЕСТР =================
 
 @router.get("/students/{student_id}/grades/semester",
          response_model=StudentSemesterGradesResponse,

@@ -17,7 +17,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 UPLOAD_DIR = "uploads/homework"
 ALLOWED_EXTENSIONS = {'.pdf', '.doc', '.docx', '.jpg', '.jpeg', '.png', '.pptx', '.xlsx', '.xls'}
-MAX_FILE_SIZE = 30 * 1024 * 1024
+MAX_FILE_SIZE = 250 * 1024 * 1024
 
 router = APIRouter(tags=["Homework"])
 
@@ -291,7 +291,6 @@ async def download_homework_file(
         group_id = await get_student_group_id(session, student_id)
         if group_id != schedule.group_id:
             raise HTTPException(status_code=403, detail="Нет доступа")
-    # Администратор – полный доступ
 
     return FileResponse(
         path=file_record.file_path,

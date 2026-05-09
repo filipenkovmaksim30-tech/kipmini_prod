@@ -67,7 +67,6 @@ async def update_user_role(
     old_role = user.role
     user.role = new_role
 
-    # Если новая роль - "student", создаем запись в таблице students
     if new_role == "student":
         existing_student = await session.execute(
             select(Student).where(Student.user_id == user_id)
@@ -81,7 +80,6 @@ async def update_user_role(
             )
             session.add(student)
 
-    # Если старая роль была "student", а новая - нет, можно удалить запись студента
     elif old_role == "student" and new_role != "student":
         student_result = await session.execute(
             select(Student).where(Student.user_id == user_id)

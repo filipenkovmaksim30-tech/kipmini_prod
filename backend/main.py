@@ -88,13 +88,11 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         msg = err.get('msg')
         if isinstance(msg, Exception):
             msg = str(msg)
-        # Создаём копию словаря, исключая ctx (если он там есть)
         clean_err = {
             "loc": err.get('loc'),
             "msg": msg,
             "type": err.get('type')
         }
-        # Если нужно, можно добавить и другие поля, но без несериализуемых объектов
         errors.append(clean_err)
     return JSONResponse(
         status_code=422,

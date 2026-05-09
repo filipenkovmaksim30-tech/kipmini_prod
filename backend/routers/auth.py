@@ -20,7 +20,7 @@ from datetime import datetime
 
 AVATAR_DIR = "uploads/avatar"
 ALLOWED_AVATAR_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif'}
-MAX_AVATAR_SIZE = 2 * 1024 * 1024
+MAX_AVATAR_SIZE = 20 * 1024 * 1024
 
 router = APIRouter(tags=["Authentication"])
 limiter = Limiter(key_func=get_remote_address)
@@ -30,7 +30,7 @@ limiter = Limiter(key_func=get_remote_address)
           status_code=status.HTTP_201_CREATED,
           summary="Регистрация пользователей",
           description="Создаёт нового пользователя в системе")
-@limiter.limit("7/minute")
+@limiter.limit("10/minute")
 async def register(request: Request, user_data: UserCreate, session: AsyncSession = Depends(get_session),):
     try:
         user_id = await create_user(
@@ -64,7 +64,7 @@ async def register(request: Request, user_data: UserCreate, session: AsyncSessio
           response_model=Token,
           summary="Вход в систему",
           description="Аутентификация пользователя и получение JWT токена")
-@limiter.limit("3/minute")
+@limiter.limit("10/minute")
 async def login(request: Request,form_data: OAuth2PasswordRequestForm = Depends(), session: AsyncSession = Depends(get_session),):
     user = await authenticate_user(session, form_data.username, form_data.password)
 
@@ -109,7 +109,7 @@ async def check_password_strength(password: str = Query(..., min_length=8)):
 @router.post("/auth/change-password",
           summary="Смена пароля",
           description="Позволяет пользователю сменить свой пароль")
-@limiter.limit("5/minute")
+@limiter.limit("10/minute")
 async def change_password(
     request: Request,
     password_data: ChangePasswordRequest,
